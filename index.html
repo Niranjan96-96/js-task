@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Task</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="content" id="main">
+    </div>
+<script>
+    async function getFromServer(){
+        fetch('https://animechan.vercel.app/api/quotes/anime?title=naruto')
+      .then(response => response.json())
+      .then(quotes =>{
+         function createCard(anime, quote) {
+           let card = document.createElement('div');
+           card.className="col";
+           let title = document.createElement('h2');
+           title.innerText = anime;
+           let content = document.createElement('p');
+           content.innerText = quote;
+           card.appendChild(title);
+           card.appendChild(content);
+           return card;
+         }
+          quotes.map(quote =>{
+           document.getElementById('main').appendChild(createCard(quote.anime, quote.quote));     
+        }) 
+       })
+    }
+    getFromServer();
+    </script>
+</body>
+</html>
